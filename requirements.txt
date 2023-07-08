@@ -1,0 +1,24 @@
+numpy
+pandas
+Flask
+scikit-learn
+seaborn
+matplotlib
+beautifulsoup4
+bleach
+defusedxml
+jupyterlab-pygments
+nbclient
+nbformat
+pandocfilters
+xgboost
+catboost
+
+
+
+
+
+
+
+
+-e .
