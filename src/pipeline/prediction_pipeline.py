@@ -30,38 +30,51 @@ class PredictPipeline:
         
 class CustomData:
     def __init__(self,
-                 carat:float,
-                 depth:float,
-                 table:float,
-                 x:float,
-                 y:float,
-                 z:float,
-                 cut:str,
-                 color:str,
-                 clarity:str):
+                 Item_Identifier:str,
+                 Item_Weight:float,              
+                 Item_Fat_Content:str,
+                 Item_Visibility:float,             
+                 Item_Type:str,                
+                 Item_MRP:float,                
+                 Outlet_Identifier:str,         
+                 Outlet_Establishment_Year:int,   
+                 Outlet_Size:str,                  
+                 Outlet_Location_Type:str,       
+                 Outlet_Type:str,     
+                 Item_Outlet_Sales:float            
+                 ):
         
-        self.carat=carat
-        self.depth=depth
-        self.table=table
-        self.x=x
-        self.y=y
-        self.z=z
-        self.cut = cut
-        self.color = color
-        self.clarity = clarity
+        self.Item_Identifier=Item_Identifier
+        self.Item_Weight=Item_Weight
+        self.Item_Fat_Content=Item_Fat_Content
+        self.Item_Visibility=Item_Visibility
+        self.Item_Type=Item_Type
+        self.Item_MRP = Item_MRP
+        self.Outlet_Identifier = Outlet_Identifier
+        self.Outlet_Establishment_Year = Outlet_Establishment_Year
+        self.Outlet_Size = Outlet_Size
+        self.Outlet_Location_Type = Outlet_Location_Type
+        self.Outlet_Type = Outlet_Type
+        self.Item_Outlet_Sales = Item_Outlet_Sales
+
 
     def get_data_as_dataframe(self):
         try:
             custom_data_input_dict = {
-                'carat':[self.carat],
-                'depth':[self.depth],
-                'table':[self.table],
-                'x':[self.x],
-                'y':[self.y],
-                'z':[self.z],
-                'cut':[self.cut],
-                'color':[self.color],
-                'clarity':[self.clarity]
+                'Item_Identifier':[self.Item_Identifier],
+                'Item_Weight':[self.Item_Weight],
+                'Item_Fat_Content':[self.Item_Fat_Content],
+                'Item_Visibility':[self.Item_Visibility],
+                'Item_Type':[self.Item_Type],
+                'Item_MRP':[self.Item_MRP],
+                'Outlet_Identifier':[self.Outlet_Identifier],
+                'Outlet_Establishment_Year':[self.Outlet_Establishment_Year],
+                'Outlet_Size':[self.Outlet_Size],
+                'Outlet_Location_Type':[self.Outlet_Location_Type],
+                'Outlet_Type':[self.Outlet_Type],
+                'Item_Outlet_Sales':[self.Item_Outlet_Sales]
+                
+
             }
             df = pd.DataFrame(custom_data_input_dict)
             logging.info('Dataframe Gathered')

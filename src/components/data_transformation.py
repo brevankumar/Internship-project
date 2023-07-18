@@ -7,6 +7,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder,PowerTransformer,MinMaxScaler,OneHotEncoder,TargetEncoder
+#import category_encoders
+
 
 
 from src.exception import CustomException
@@ -45,12 +47,15 @@ class DataTransformation:
             Outlet_Location_Type_categories = ['Tier 3','Tier 2','Tier 1']
             
             # categories for one hot encoding
-            Item_Type_categories = ['Dairy','Soft Drinks','Meat','Fruits and Vegetables','Household']
+            Item_Type_categories = ['Dairy','Soft Drinks','Meat','Fruits and Vegetables','Household','Baking Goods','Snack Foods','Frozen Foods',
+                                  'Breakfast','Health and Hygiene','Hard Drinks','Canned','Breads','Starchy Foods','Others','Seafood']
+
             Outlet_Identifier_categories = ['OUT049','OUT018','OUT010','OUT013','OUT027','OUT045','OUT017','OUT046','OUT035','OUT019']
+
             Outlet_Type_categories = ['Supermarket Type1','Supermarket Type2','Grocery Store','Supermarket Type3']
 
             # categories for target guided encoding
-            Outlet_Establishment_Year_categories = [1999, 2009, 1998, 1987, 1985, 2002, 2007, 1997, 2004]
+            Outlet_Establishment_Year_categories = ['1999', '2009', '1998', '1987', '1985', '2002', '2007', '1997', '2004']
 
             
             logging.info('Pipeline Initiated')
@@ -64,35 +69,35 @@ class DataTransformation:
             )
 
             # Categorigal Pipeline
-            cat_pipeline_1=Pipeline(
+            cat_pipeline_1 = Pipeline(
                 steps=[
                 ('imputer', SimpleImputer(strategy='most_frequent')),
                 ('ordinalencoder', OrdinalEncoder(categories= [Item_Fat_Content_categories,Outlet_Size_categories,Outlet_Location_Type_categories])),
                 ('scaler1', MinMaxScaler())
                 ]
                 )
-        
-        
-            cat_pipeline_2=Pipeline(
+
+
+            cat_pipeline_2 = Pipeline(
                 steps=[
                 ('imputer', SimpleImputer(strategy='most_frequent')),
-                ('Targetencoder', TargetEncoder(categories= [Outlet_Establishment_Year_categories],target_type="continuous")),
-                ('scaler2', MinMaxScaler())
+                ('onehotencoder', OneHotEncoder(categories = [Item_Type_categories,Outlet_Identifier_categories,Outlet_Type_categories] ,drop="first"))
                 ]
                 )
             
-            cat_pipeline_3=Pipeline(
+    
+            """cat_pipeline_3 = Pipeline(
                 steps=[
                 ('imputer', SimpleImputer(strategy='most_frequent')),
-                ('onehotencoder', OneHotEncoder(categories = [Item_Type_categories,Outlet_Identifier_categories,Outlet_Type_categories] ,drop="first", 
-                                                sparse_output = False,handle_unknown="ignore"))
+                ('onehotencoder2', OneHotEncoder(categories = Outlet_Establishment_Year_categories ,drop="first"))                
                 ]
-                )
+                )"""
+            
             
             
             preprocessor=ColumnTransformer(transformers= [('num_pipeline',num_pipeline,numerical_cols), ('cat_pipeline1',cat_pipeline_1,categorical_cols_1),
-                                                          ('cat_pipeline2',cat_pipeline_2,categorical_cols_2), ('cat_pipeline3',cat_pipeline_3, categorical_cols_3)],
-                                                          remainder='passthrough')
+                                                          ('cat_pipeline2',cat_pipeline_2,categorical_cols_2)],
+                                                          remainder='passthrough',sparse_threshold=0)
 
             return preprocessor
 
