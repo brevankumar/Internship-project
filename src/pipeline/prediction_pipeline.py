@@ -30,22 +30,24 @@ class PredictPipeline:
         
 class CustomData:
     def __init__(self,
-                 Item_Identifier:str,
-                 Item_Weight:float,              
-                 Item_Fat_Content:str,
-                 Item_Visibility:float,             
-                 Item_Type:str,                
-                 Item_MRP:float,                
-                 Outlet_Identifier:str,         
-                 Outlet_Establishment_Year:int,   
-                 Outlet_Size:str,                  
-                 Outlet_Location_Type:str,       
-                 Outlet_Type:str,     
-                 Item_Outlet_Sales:float            
+
+                 age:int,  
+                 fnlwgt:int, 
+                 education:str, 
+                 marital-status:str, 
+                 occupation:str, 
+                 relationship:str, 
+                 race:str, 
+                 sex:str,
+                 capital-gain:int, 
+                 capital-loss:int, 
+                 hours-per-week:int, 
+                 country:str, 
+                 salary:str,
+                 workclass:str           
                  ):
-        
-        self.Item_Identifier=Item_Identifier
-        self.Item_Weight=Item_Weight
+    self.age=age
+    self.fnlwgt=fnlwgt
         self.Item_Fat_Content=Item_Fat_Content
         self.Item_Visibility=Item_Visibility
         self.Item_Type=Item_Type
